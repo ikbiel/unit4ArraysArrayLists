@@ -2,7 +2,7 @@ public class ArrayAlgorithms
 {
     private int[] values;
 
-    public ArrayAlgorithms()
+        public ArrayAlgorithms()
         {
             this.values = new int[10];
         }
@@ -46,20 +46,20 @@ public class ArrayAlgorithms
             return average;
         }
 
-    public int getIndexOfMaximum()
-    {
-        int maximum = this.values[0];
-        int indexOfMaximum = 0;
-
-        for (int i = 0; i < this.values.length; i++)
+        public int getIndexOfMaximum()
         {
-            if (values[i] > maximum)
-            {
-                maximum = values[i];
-                indexOfMaximum = i;
-            }
-        }
+            int maximum = this.values[0];
+            int indexOfMaximum = 0;
 
-        return indexOfMaximum;
-    }
+            for (int i = 0; i < this.values.length; i++)
+            {
+                if (values[i] > maximum)
+                {
+                    maximum = values[i];
+                    indexOfMaximum = i;
+                }
+            }
+
+            return indexOfMaximum;
+        }
 }
