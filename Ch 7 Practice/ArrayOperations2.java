@@ -17,11 +17,22 @@ public class ArrayOperations2
     
     public void shiftRight()
     {
-        this.values[0] = this.values[values.length - 1];
-        for( int i = 1; i <= values.length-1; i++ ) 
+        int last = values.length - 1;
+        int temp = values[last];
+        
+        for( int i = last; i > 0; i--)
         {
-            this.values[i] = this.values[i+1];
+            values[i] = values[i-1];
         }
+        
+        values[0] = temp;
+        
+            //        
+            //         this.values[0] = this.values[values.length - 1];
+            //         for( int i = 1; i <= values.length-1; i++ ) 
+            //         {
+            //             this.values[i] = this.values[i+1];
+            //         }
     }
     
     public void replaceEvensWithZero()
@@ -34,6 +45,27 @@ public class ArrayOperations2
     
     public void replaceWithLargerNeighbor()
     {
+            //        int[] tempArray = new int[values.length];
+            //        tempArray[0] = values[0];
+            //        tempArray[tempArray.length-1] = values[values.length-1];
+            //        
+            //        // start loop at one, and stop before end
+            //        for( int i = 1; i < values.length - 1; i++)
+            //        {
+            //            if (values[i-1] > values[i+1])
+            //            {
+            //                tempArray[i] = values[i-1];
+            //             }
+            //             else
+            //             {
+            //                 tempArray[i] = values[i+1];
+            //             }
+            //         }
+       
+        
+        
+        
+        
         for (int i = 1; i < values.length-1; i++)
         {
             int leftN = this.values[i-1];
@@ -88,7 +120,102 @@ public class ArrayOperations2
     
     public void evenInFront()
     {
+       int[] newValues = new int[values.length];
+       int newI = 0;
+       int minimum = this.values[0];
+       int indexOfMin = 0;
+       
+       for( int x = 0; x < this.values.length; x++ )
+       {
+           if( values[x] < minimum)
+           {
+               minimum = values[x];
+               indexOfMin = x;
+           }
+       }
         
+       for( int i = 0; i < this.values.length; i++ )
+       {
+           if( (values[i] % 2) == 0 && values[i] < values[indexOfMin] )
+           {
+               newValues[newI] = this.values[i];
+               i = indexOfMin;
+           }
+           newI++;
+       }
     }
-
+    
+    public int secondLargest()
+    {
+        int max = this.values[0];
+        int indexMax = 0;
+        int secMax = max;
+        
+        for( int i = 0; i < this.values.length; i++ )
+        {
+            if( values[i] > max )
+            {
+                max = values[i];
+                indexMax = i;
+            }
+        }
+        
+        for( int x = 0; x < this.values.length; x++ )
+        {
+            if (max < x)
+            {
+                secMax = max;
+                max = x;
+            }
+        }
+        
+        return secMax;
+    }
+    
+    public boolean isInOrder()
+    {
+        boolean inOrder = true;
+        for( int i = 0; i < this.values.length; i++ )
+        {
+            if (values[i] > values[i+1])
+            {
+                inOrder = false;
+            }
+        }
+        
+        return inOrder;
+    }
+    
+    public boolean adjacentDuplicates()
+    {
+        boolean adjacent_dubs = false;
+        int prevValue = 0;
+        for( int i = 1; i < this.values.length; i++ )
+        {
+           if (this.values[i] == values[prevValue])
+           {
+               adjacent_dubs = true;
+            }
+            prevValue++;
+        }
+        
+        return adjacent_dubs;
+    }
+    
+    public boolean duplicates()
+    {
+        boolean hasDubs = false;
+        for( int i = 0; i < this.values.length; i++ )
+        {
+            for( int x = 1; x < this.values.length; x++)
+            {
+                if (this.values[x] == this.values[i])
+                {
+                    hasDubs = true;
+                }
+            }
+        }
+        
+        return hasDubs;
+    }
 }
