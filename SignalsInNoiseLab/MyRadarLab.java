@@ -28,11 +28,12 @@ public class MyRadarLab
     // number of scans of the radar since construction
     private int numScans;
     
-    // monster velocity dx
+    // the change in x axis of monster
     private int dx;
     
-    // monster velocity dy
+    // the change in y axis of monster
     private int dy;
+    
 
     /**
      * Constructor for objects of class MyClassRadar
@@ -40,7 +41,7 @@ public class MyRadarLab
      * @param   rows    the number of rows in the radar grid
      * @param   cols    the number of columns in the radar grid
      */
-    public MyRadarLab(int rows, int cols)
+    public MyRadarLab(int rows, int cols, int monsterRow, int monsterCol, int dxLoc, int dyLoc)
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
@@ -51,8 +52,11 @@ public class MyRadarLab
         monsterLocationRow = (int)(Math.random() * rows);
         monsterLocationCol = (int)(Math.random() * cols);
         
-        noiseFraction = 0.05;
+        noiseFraction = 0.01;
         numScans= 0;
+        
+        // 
+        
 
     }
     
@@ -195,6 +199,17 @@ public class MyRadarLab
                 }
             }
         }
+    }
+    
+    public static void main(String[] args)
+    {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter the monster row: ");
+        monsterLocationRow = s.nextInt();
+        
+        System.out.println("Enter the monster column: ");
+        monsterLocationCol = s.nextInt();
+        
     }
     
 }
