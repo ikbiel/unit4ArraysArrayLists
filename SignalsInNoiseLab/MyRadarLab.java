@@ -11,6 +11,7 @@ public class MyRadarLab
     
     // stores whether each cell triggered detection for the current scan of the radar
     private boolean[][] currentScan;
+    private boolean[][] prevScan;
     
     // value of each cell is incremented for each scan in which that cell triggers detection 
     private int[][] accumulator;
@@ -45,6 +46,7 @@ public class MyRadarLab
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
+        prevScan = new boolean[rows][cols];
         accumulator = new int[rows][cols]; // elements will be set to 0
         
         // randomly set the location of the monster (can be explicity set through the
@@ -52,7 +54,7 @@ public class MyRadarLab
         monsterLocationRow = (int)(Math.random() * rows);
         monsterLocationCol = (int)(Math.random() * cols);
         
-        noiseFraction = 0.01;
+        noiseFraction = 0.001;
         numScans= 0;
         
         // 
@@ -67,27 +69,49 @@ public class MyRadarLab
     public void scan()
     {
         // zero the current scan grid
+        
+        
         for(int row = 0; row < currentScan.length; row++)
         {
             for(int col = 0; col < currentScan[0].length; col++)
             {
                 currentScan[row][col] = false;
+                prevScan[row][col] = currentScan[row][col];
+                // clear current scan
+                // copy current scan into prev scan
             }
         }
         
-        // detect the monster
+        // detect the monster based on dx and dy
+        
         currentScan[monsterLocationRow][monsterLocationCol] = true;
         
         // inject noise into the grid
         injectNoise();
         
         // udpate the accumulator
+        
+        // 4 nested for loops: calculate potential dx and dy
+            // if element is true
+            // is vector within 5
+        // add 5 to index dx/dy to adjust
+        int xAccum;
+        int yAccum;
         for(int row = 0; row < currentScan.length; row++)
         {
             for(int col = 0; col < currentScan[0].length; col++)
             {
                 if(currentScan[row][col] == true)
                 {
+                   for( int row1 = 0; row1 < prevScan.length; row1++ )
+                   {
+                       for( int col1 = 0; col1 < prevScan[0].length; col++ )
+                       {
+                          // put into accumulator
+                          accumulator.add(currentScan[row]-prevScan[row1], currentScan[row][col]-prevScan[row1][col1]
+                       }
+                   }
+                   
                    accumulator[row][col]++;
                 }
             }
@@ -201,14 +225,42 @@ public class MyRadarLab
         }
     }
     
+    /**
+     * Finds dx and dy of monster by checking elements in accumulator. Max value is monster
+     */
+    
+    public int findVelocity()
+    {
+        int maximum = accumulator[0][0];
+        int indexOfMax = 0;
+        for( int row = 0; row < accumulator.length; row++ )
+        {
+            for( int col = 0; col < accumulator[0].length; col++ )
+            {
+                if( accumulator[row][col] > maximum )
+                {
+                    maximum = values[i];
+                    indexofMax = i;
+                    dx = accumulator[row];
+                    dy = accumulator[row][col];
+                }
+            }
+        }
+        
+        
+    }
+    
     public static void main(String[] args)
     {
         Scanner s = new Scanner(System.in);
-        System.out.println("Enter the monster row: ");
+        System.out.println("Enter the monster row and column: ");
         monsterLocationRow = s.nextInt();
-        
-        System.out.println("Enter the monster column: ");
         monsterLocationCol = s.nextInt();
+        
+        
+        
+        System.out.println("Dx: " + dx );
+        System.out.println("Dy: " + dy );
         
     }
     
