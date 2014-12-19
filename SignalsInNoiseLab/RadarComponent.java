@@ -16,7 +16,7 @@ public class RadarComponent extends JComponent
     static final int CELL_WIDTH = 5;
     static final int CELL_HEIGHT = 5;
 
-    Radar radar;
+    MyRadarLab2 radar;
     
     /**
      * Constructor
@@ -25,7 +25,7 @@ public class RadarComponent extends JComponent
      * @pre the specified radar object must be non-null
      * 
      */
-    public RadarComponent(Radar radar)
+    public RadarComponent(MyRadarLab2 radar)
     {
         this.radar = radar;
     }
